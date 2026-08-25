@@ -28,15 +28,17 @@ def get_dataloaders():
         split="trainval", 
         target_types="category", 
         download=True, 
-        transforms=None
+        transform=None
     )
 
     train_size = int(0.8 * len(full_dataset))
     val_size = len(full_dataset) - train_size
 
+    generator = torch.Generator().manual_seed(42)
     train_subset, val_subset = random_split(
         full_dataset, 
-        [train_size, val_size]
+        [train_size, val_size], 
+        generator=generator
     )
 
     train_dataset = datasets.OxfordIIITPet(
@@ -52,7 +54,7 @@ def get_dataloaders():
         split="trainval",
         target_types="category",
         download=False,
-        transforms=val_transform
+        transform=val_transform
     )
 
     train_dataset = Subset(
