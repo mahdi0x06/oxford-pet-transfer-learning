@@ -57,6 +57,14 @@ def get_dataloaders():
         transform=val_transform
     )
 
+    test_dataset = datasets.OxfordIIITPet(
+        root="data",
+        split="test",
+        target_types="category",
+        download=True,
+        transform=val_transform
+    )
+
     train_dataset = Subset(
         train_dataset, 
         train_subset.indices
@@ -78,13 +86,19 @@ def get_dataloaders():
         batch_size=32, 
         shuffle=False
     )
-    return train_loader, val_loader
+
+    test_loader = DataLoader(
+        test_dataset, 
+        batch_size=32, 
+        shuffle=False
+    )
+
+    return train_loader, val_loader, test_loader
 
 if __name__ == "__main__":
-    train_loader, val_loader = get_dataloaders()
+    train_loader, val_loader, test_loader = get_dataloaders()
 
-    images, labels = next(iter(train_loader))
+    test_images, test_labels = next(iter(test_loader))
 
-    print(images.shape)
-    print(labels.shape)
-    print(labels[:10])
+    print(test_images.shape)
+    print(test_labels.shape)
