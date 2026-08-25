@@ -5,8 +5,12 @@ from src.data import get_dataloaders
 from src.model import get_model
 from tqdm import tqdm
 import matplotlib.pyplot as plt
+from pathlib import Path
 
 def train():
+    Path("outputs/checkpoints").mkdir(parents=True, exist_ok=True)
+    Path("outputs/figures").mkdir(parents=True, exist_ok=True)
+    
     train_loader, val_loader, _ = get_dataloaders()
     model = get_model()
 
