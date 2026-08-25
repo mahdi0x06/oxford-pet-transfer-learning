@@ -21,7 +21,7 @@ def train():
         lr=0.001
     )
 
-    num_epochs = 1
+    num_epochs = 10
     best_val_accuracy = 0.0
     train_losses = []
     train_accuracies = []
