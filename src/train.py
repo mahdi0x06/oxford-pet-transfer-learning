@@ -7,7 +7,7 @@ from tqdm import tqdm
 import matplotlib.pyplot as plt
 
 def train():
-    train_loader, val_loader = get_dataloaders()
+    train_loader, val_loader, _ = get_dataloaders()
     model = get_model()
 
     device = torch.device(
