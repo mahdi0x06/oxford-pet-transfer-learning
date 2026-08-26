@@ -13,7 +13,10 @@ from sklearn.metrics import (
 )
 import matplotlib.pyplot as plt
 
-def evaluate():
+def evaluate(
+    checkpoint_path="outputs/checkpoints/best_model.pth",
+    confusion_matrix_path="outputs/figures/confusion_matrix.png"
+):
     _, _, test_loader = get_dataloaders()
     model = get_model()
     device = torch.device(
@@ -22,7 +25,7 @@ def evaluate():
     model = model.to(device)
 
     state_dict = torch.load(
-        "outputs/checkpoints/best_model.pth",
+        checkpoint_path,
         map_location=device
     )
     model.load_state_dict(state_dict)
@@ -93,7 +96,7 @@ def evaluate():
     plt.tight_layout()
 
     plt.savefig(
-        "outputs/figures/confusion_matrix.png",
+        confusion_matrix_path,
         dpi=200
     )
 
