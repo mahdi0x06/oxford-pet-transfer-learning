@@ -14,11 +14,26 @@ def get_model():
 
     return model
 
+def get_finetune_model(checkpoint_path):
+    model = get_model()
 
+    state_dict = torch.load(
+        checkpoint_path, 
+        map_location="cpu"
+    )
+    model.load_state_dict(state_dict)
 
+    for param in model.layer4.parameters():
+        param.requires_grad = True
+
+    return model
 
 
 
 if __name__ == "__main__":
     model = get_model()
+
+    for name, param in model.named_parameters():
+        if param.requires_grad:
+            print(name)
     
