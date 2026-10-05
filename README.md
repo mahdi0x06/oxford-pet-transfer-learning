@@ -101,7 +101,7 @@ Trainable
 37 breed logits
 ```
 
-This uses ResNet18 as a fixed feature extractor.
+The backbone parameters are frozen. In the current baseline training loop, `model.train()` still updates BatchNorm running statistics; this is not a strictly fixed feature extractor. The recorded results below use that baseline behavior.
 
 ### Partial Fine-Tuning
 
@@ -199,7 +199,7 @@ Both models were evaluated on the same official Oxford-IIIT Pet test split.
 
 Partial fine-tuning improved all four reported test metrics.
 
-The improvement in both accuracy and macro-averaged metrics indicates that fine-tuning improved performance across the class set rather than only helping a small subset of breeds.
+Accuracy and macro-averaged metrics both improve in aggregate. These averages alone do not show that every breed improves; use the per-class reports and confusion matrices for that comparison.
 
 ---
 

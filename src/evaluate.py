@@ -1,4 +1,5 @@
 import torch
+from pathlib import Path
 
 from src.data import get_dataloaders
 from src.model import get_model
@@ -95,6 +96,7 @@ def evaluate(
     plt.title("Normalized Confusion Matrix")
     plt.tight_layout()
 
+    Path(confusion_matrix_path).parent.mkdir(parents=True, exist_ok=True)
     plt.savefig(
         confusion_matrix_path,
         dpi=200
